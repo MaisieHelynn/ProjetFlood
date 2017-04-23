@@ -83,6 +83,31 @@ int affiche(plateau P){
   return(0);
 }
 
+/*----------------------------------------------------------------------------------*/
+/* @requires : Nécessite un plateau
+   @assigns : Rien
+   @ensures : Renvoie TRUE (=1) si le plateau est d'une couleur unique, FALSE (=0) sinon */
+/*----------------------------------------------------------------------------------*/
+
+int victoire(plateau P){
+	int cond = (0==0);
+	int n = P.taille;
+	int couleur = P.contenu[0][0];
+	int i;
+	int j;
+	i = 0;
+	while (cond && i < n) {
+		j = 0;
+		while (cond && j < n) {
+			if (couleur != P.contenu[i][j]) {
+				cond = (0==1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return cond;
+}
 
 /* Pour faire des tests */
 
