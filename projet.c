@@ -116,6 +116,14 @@ int main(){
   affiche(P);
   changement_couleur(P,2,1,7);
   affiche(P);
+  if (victoire(P)) {
+    printf("Gagné !\n");
+  }
+  else {
+    printf("Pas gagné...\n");
+  }
+  /* tableau de 1*1 case, donc sûr de gagner */
+  printf("%s", (victoire(aleatoire(1,6))) ? "Gagné !" : "Pas gagné...");
   return(0);
 };
 
