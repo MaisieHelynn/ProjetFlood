@@ -290,23 +290,60 @@ plateau reprise(int n, int m){
       }      
     }
 }
+
+/*----------------------------------------------------------------------------------*/
+/* @requires : Nécessite un plateau
+   @assigns : Rien
+   @ensures : Renvoie TRUE (=1) si le plateau est d'une couleur unique, FALSE (=0) sinon */
+/*----------------------------------------------------------------------------------*/
+
+int victoire(plateau P){
+	int cond = (0==0);
+	int n = P.taille;
+	int couleur = P.contenu[0][0];
+	int i;
+	int j;
+	i = 0;
+	while (cond && i < n) {
+		j = 0;
+		while (cond && j < n) {
+			if (couleur != P.contenu[i][j]) {
+				cond = (0==1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return cond;
+}
 	
-	      
-  
+	    
 
 /* Pour faire des tests */
 
 int main(){
+	/* TESTS PLATEAU */
   plateau p_2 = reprise(1,1);
   affiche(p_2);
   plateau P=aleatoire(3,4);
   affiche(P);
+	/* TESTS VOISINS ET COULEURS */
   coordonnees V=voisins(P,1,1);
   aff_coord(V);
   coordonnees C=connexe(P,1,1);
   aff_coord(C);
   changement_couleur(P,2,1,18);
   affiche(P);
+	/* TESTS VICTOIRE */
+  if (victoire(P)) {
+    printf("Gagné !\n");
+  }
+  else {
+    printf("Pas gagné...\n");
+  }
+  /* tableau de 1*1 case, donc sûr de gagner */
+  printf("%s", (victoire(aleatoire(1,6))) ? "Gagné !" : "Pas gagné...");
+	/* TESTS INITIALISATION FICHIER + SAUVEGARDE */
   sauvegarder(P);
   supprime(P);
   affiche(P);/* ca affiche n'importe quoi -> normal car la memoire de P a été libérée */
