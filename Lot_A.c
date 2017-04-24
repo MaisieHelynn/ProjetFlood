@@ -1,10 +1,19 @@
+/*!
+   * \file  Lot_A.c
+   * \brief Lot A du Flood
+   * \date 24 Avril 2017
+   * \author {AMSELLEM Elyne, CHOLLET Remi, JAMOUS Remi, MEHENNI Sylia}
+  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <time.h>
 
 /*----------------------------------------------------------------------------------*/
-/* On définit le type plateau représenté par une matrice à deux dimensions */
+/*! 
+* \struct plateau
+* \brief On définit le type plateau représenté par une matrice à deux dimensions
+*/
 /*----------------------------------------------------------------------------------*/
 
 struct plateau{
@@ -15,7 +24,10 @@ struct plateau{
 typedef struct plateau plateau;
 
 /*----------------------------------------------------------------------------------*/
-/* On définit le type coordonnees représenté par une matrice de taille 4x2 */
+/*! 
+* \struct coordonnees
+* \brief On définit le type coordonnees représenté par une matrice de taille 4x2 
+*/
 /*----------------------------------------------------------------------------------*/
 
 struct coordonnees{ /* n = taille de la matrice */
@@ -25,9 +37,11 @@ struct coordonnees{ /* n = taille de la matrice */
 typedef struct coordonnees coordonnees;
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite un entier n >0 qui sera la taille du plateau
-   @assigns : Attribue n^2 cases mémoires pour les cases 
-   @ensures : Crée une matrice de taille n ne contenant que des 0 */
+/*! 
+* \fn plateau new_plateau(int n)
+* \param Nécessite un entier n >0 qui sera la taille du plateau
+* \return Crée une matrice de taille n ne contenant que des 0 
+*/
 /*----------------------------------------------------------------------------------*/
 
 plateau new(int n){
@@ -42,9 +56,11 @@ plateau new(int n){
 }
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Rien
-   @assigns : Attribue n^2 cases mémoires pour les cases 
-   @ensures : Crée une matrice de taille 4*2 ne contenant que des 0 */
+/*! 
+* \fn coordonnees new_coordonnees()
+* \param Rien
+* \return : Crée une matrice de taille 4*2 ne contenant que des 0 
+ */
 /*----------------------------------------------------------------------------------*/
 
 coordonnees new_coordonnees(){
@@ -58,9 +74,11 @@ coordonnees new_coordonnees(){
 }
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite un entier n >0  (taille du plateau), et un nombre de couleurs >0
-   @assigns : Attribue n^2 cases mémoires pour les cases 
-   @ensures : Crée un plateau contenant des couleurs aléatoires */
+/*! 
+* \fn plateau aleatoire(int n, int couleurs)
+* \param Nécessite un entier n >0  (taille du plateau), et un nombre de couleurs >0
+* \return Crée un plateau contenant des couleurs aléatoires 
+*/
 /*----------------------------------------------------------------------------------*/
 
 plateau aleatoire(int n, int couleurs){
@@ -79,9 +97,11 @@ plateau aleatoire(int n, int couleurs){
 }
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite un plateau, une case ([i][j]) et une nouvelle couleur
-   @assigns : Modifie une case mémoire du plateau
-   @ensures : Rien  */
+/*! 
+* \fn void changement_couleur(plateau P, int i, int j, int couleur)
+* \param Nécessite un plateau, une case ([i][j]) et une nouvelle couleur
+* \return Rien  
+*/
 /*----------------------------------------------------------------------------------*/
 
 void changement_couleur(plateau P, int i, int j, int couleur){
@@ -89,9 +109,11 @@ void changement_couleur(plateau P, int i, int j, int couleur){
 }
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite un plateau
-   @assigns : Rien
-   @ensures : Affiche le plateau */
+/*! 
+* \fn void affiche(plateau P)
+* \param Nécessite un plateau
+* \return Affiche le plateau 
+*/
 /*----------------------------------------------------------------------------------*/
 
 void affiche(plateau P){
@@ -109,9 +131,11 @@ void affiche(plateau P){
 }
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite une matrice de coordonnées
-   @assigns : Rien
-   @ensures : Affiche la matrice */
+/*! 
+* \fn int aff_coord(coordonnees C)
+* \param Nécessite une matrice de coordonnées
+* \return Affiche la matrice 
+*/
 /*----------------------------------------------------------------------------------*/
 
 int aff_coord(coordonnees C){
@@ -129,14 +153,16 @@ int aff_coord(coordonnees C){
 }
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite un plateau et une case (x,y)
-   @assigns : Rien
-   @ensures : Renvoie les coordonnées des cases voisines de (x,y) si elles existent, 
+/*! 
+* \fn coordonnees voisins(plateau P, int x, int y)
+* \param Nécessite un plateau et une case (x,y)
+* \return Renvoie les coordonnées des cases voisines de (x,y) si elles existent, 
               les remplace par le couple (-1,-1) sinon. La matrice est remplie dans 
               l'ordre suivant : Haut, Gauche, Bas, Droite, en numérotant les lignes
               et colonnes telles qu'on le ferait dans une matrice (ie. l'origine est
               en haut à gauche et on incrémente vers le bas et vers la droite). Dans 
-              le couple (a,b), a représente le numéro de ligne, et b celui de colonne. */
+              le couple (a,b), a représente le numéro de ligne, et b celui de colonne. 
+*/
 /*----------------------------------------------------------------------------------*/
 
 coordonnees voisins(plateau P, int x, int y){
@@ -171,10 +197,12 @@ return C;
 }
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite un plateau et une case (x,y)
-   @assigns : Rien
-   @ensures : Renvoie les coordonnées des cases voisines de (x,y) qui sont de même couleur,
-              et les remplace par (-1,-1) sinon */
+/*! 
+* \fn coordonnees connexe(plateau P, int x, int y)
+* \param Nécessite un plateau et une case (x,y)
+* \return Renvoie les coordonnées des cases voisines de (x,y) qui sont de même couleur,
+              et les remplace par (-1,-1) sinon 
+*/
 /*----------------------------------------------------------------------------------*/
 
 coordonnees connexe(plateau P, int x, int y){
@@ -195,9 +223,11 @@ coordonnees connexe(plateau P, int x, int y){
 
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite un plateau
-   @assigns : libère l'espace mémoire
-   @ensures : rien */
+/*! 
+* \fn void supprime(plateau P)
+* \param Nécessite un plateau
+* \return Rien 
+*/
 /*----------------------------------------------------------------------------------*/
 void supprime(plateau P){
   int n=P.taille;
@@ -209,9 +239,11 @@ void supprime(plateau P){
 }
   
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite une matrice de coordonnées
-   @assigns : libère l'espace mémoire
-   @ensures : rien */
+/*! 
+* \fn void sup_coord(coordonnees C)
+* \param Nécessite une matrice de coordonnées
+* \return Rien 
+*/
 /*----------------------------------------------------------------------------------*/
 
 void sup_coord(coordonnees C){
@@ -223,11 +255,14 @@ void sup_coord(coordonnees C){
 }
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite un plateau
-   @assigns : Sauvegarde le plateau dans un fichier : la première ligne correspond à la taille,
+/*! 
+* \fn void sauvegarder(plateau p)
+* \param Nécessite un plateau
+* \return Rien 
+* \brief Sauvegarde le plateau dans un fichier : la première ligne correspond à la taille,
 ATTENTION : si une sauvegarde était présente elle sera écrasée, le fichier sera créer si besoin
    le plateau est toujours en mémoire
-   @ensures : */
+*/
 /*----------------------------------------------------------------------------------*/
 void sauvegarder(plateau p){
   FILE* fi = fopen( "sauvegarde_partie.txt", "w+" );
@@ -249,10 +284,13 @@ void sauvegarder(plateau p){
 
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : de préférence un fichier sauvegarde_partie.txt, s'il n'y en a pas la fonction renvera un plateau aléatoire de taille n avec m couleurs
+/*! 
+* \fn plateau reprise(int n, int m)
+* \param De préférence un fichier sauvegarde_partie.txt, s'il n'y en a pas la fonction renvera un plateau aléatoire de taille n avec m couleurs
    Remarque : la sauvegarde doit correspondre a un plateau de taille et de nombre de couleurs inférieur à 100 
-   @assigns : Récupère le plateau sauvegardé dans un fichier sans le modifier
-   @ensures : le plateau enregistré ( si présent ) ou un plateau aléatoire s'il n'y avait pas de fichier ou un probleme */
+* \return Le plateau enregistré ( si présent ) ou un plateau aléatoire s'il n'y avait pas de fichier ou un probleme 
+* \brief Récupère le plateau sauvegardé dans un fichier sans le modifier   
+*/
 /*----------------------------------------------------------------------------------*/
 
 plateau reprise(int n, int m){
@@ -292,9 +330,11 @@ plateau reprise(int n, int m){
 }
 
 /*----------------------------------------------------------------------------------*/
-/* @requires : Nécessite un plateau
-   @assigns : Rien
-   @ensures : Renvoie TRUE (=1) si le plateau est d'une couleur unique, FALSE (=0) sinon */
+/*! 
+* \fn int victoire(plateau P)
+* \param Nécessite un plateau
+* \return Renvoie TRUE (=1) si le plateau est d'une couleur unique, FALSE (=0) sinon 
+*/
 /*----------------------------------------------------------------------------------*/
 
 int victoire(plateau P){
