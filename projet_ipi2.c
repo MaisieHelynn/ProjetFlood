@@ -267,30 +267,133 @@ plateau reprise(int n, int m){
 	printf(" Il y a un probleme avec le fichier de sauvegarde");/* la taille du plateau n'a pas pu etre lue */
 	return aleatoire(n, m);
       }
-      else{
-	int taille= atoi(str);
-	plateau p =new(taille);
-	int i;
-	int j;
-	int tmp;
-	for (i=0; i<taille; i++){
-	  for (j=0; j<taille; j++){
-	    if (fgets(str, 4, fi) != NULL) {
-	      tmp=atoi(str); /* mais si c'est pas un entier ? */
-	      changement_couleur(p, i, j, tmp);
-	    }
-	    else {
-	      printf(" Il y a un probleme avec le fichier de sauvegarde");
-	      supprime(p); /* on libère la mémoire qu'on occupait car on va renvoyer un autre plateau */
-	      return aleatoire(n, m);
-	    }
-	  }
-	}
-	return p;
-      }      
-    }
+      else
+				{
+					int taille= atoi(str);
+					plateau p =new(taille);
+					int i;
+					int j;
+					int tmp;
+					for (i=0; i<taille; i++){
+					  for (j=0; j<taille; j++){
+							if (fgets(str, 4, fi) != NULL) {
+								tmp=atoi(str); /* mais si c'est pas un entier ? */
+		    				if ((tmp==0) && (*str != '0')){
+									printf(" Il y a un probleme avec le fichier de sauvegarde"); /* le caractère n'était pas un entier*/
+	      					supprime(p); /* on libère la mémoire qu'on occupait car on va renvoyer un autre plateau */
+	      					return aleatoire(n, m);
+								}
+								else{
+									changement_couleur(p, i, j, tmp);
+								}
+								else {
+									printf(" Il y a un probleme avec le fichier de sauvegarde");
+	      					supprime(p); /* on libère la mémoire qu'on occupait car on va renvoyer un autre plateau */
+	      					return aleatoire(n, m);
+								}
+	  					}
+						}
+						return p;
+					}      
+				}
+		}
 }
 
+/*----------------------------------------------------------------------------------*/
+/*structure de pile pour detecter la tache*/
+/*----------------------------------------------------------------------------------*/
+struct pile_co{
+  int taille;  /* taille de la pile : =-1 si la pile est vide  */
+  int *x; /* pile des abscisses*/
+	int *y; /* pile des ordonnées */
+};
+
+typedef struct pile_co pile;
+
+/*----------------------------------------------------------------------------------*/
+/* @requires : un entier n>0
+   @assigns : Alloue n cases mémoires pour la pile ATTENTION: la pile devra etre de taille suffisemment grande
+   @ensures : La ("double")pile */
+/*----------------------------------------------------------------------------------*/
+pile new_pile (int n){
+	pile p;
+	pile.taille=-1;
+	p.x =malloc(sizeof(int) *n);
+	p.y =malloc(sizeof(int) *n);
+}
+
+/*----------------------------------------------------------------------------------*/
+/* @requires : une pile pi
+   @assigns : libere la memoire d'une pile
+   @ensures : Rien*/
+/*----------------------------------------------------------------------------------*/
+void supprime_pi(pile pi){
+	free((int*)pi.x);
+	free((int*)pi.y);
+}
+
+/*----------------------------------------------------------------------------------*/
+/* @requires : une pile pi et 2 entiers correspondants aux coordonées
+   @assigns : ajoute le couple d'element et incrémente la taille de la pile
+   @ensures : Rien*/
+/*----------------------------------------------------------------------------------*/
+void ajout(pile pi, int x, int y){
+	pi.taille=pi.taille+1;
+	pi.x[pi.taille]=x;
+	pi.y[pi.taille]=y;
+}
+	
+/*----------------------------------------------------------------------------------*/
+/* @requires : p un plateau correspondant au plateau de jeu et t un autre plateau qui correspond a l'ancienne tache (t[i][j]==1 si ce point appartient a la tache et 0 sinon)
+   @assigns : Alloue la memoire pour une pile puis la detruit; modifie la matrice de la tache
+   @ensures : La nouvelle tache  */
+/*----------------------------------------------------------------------------------*/
+plateau tache(plateau p, plateau t){
+	couleur=p[0][0];
+	n=p.taille;
+	pi=new_pile(n*n);
+	ajout(pi,1,1);
+	while (pi.taille > -1){
+		/* on recupere le premier element de la pile */
+		abs=pi.x[pi.taille];
+		ord=pi.y[pi.taille];
+		pi.taille=pi.taille - 1;
+		/* on l'ajoute a la tache */
+		t[abs][ord]=1;
+		/* a droite */
+		if(abs<(n-1))
+		{ 
+			if ((couleur==p[abs+1][ord]) && (t[abs+1][ord]==0))
+			{ ajout(pi, abs+1, ord)
+			}
+		}
+		/* a gauche */
+		if(abs>1)
+		{ 
+			if ((couleur==p[abs+-1][ord]) && (t[abs-1][ord]==0))
+			{ ajout(pi, abs-1, ord)
+			}
+		}
+		/* en haut */
+		if(ord>0)
+		{ 
+			if ((couleur==p[abs][ord-1]) && (t[abs][ord-1]==0))
+			{ ajout(pi, abs, ord-1)
+			}
+		}
+		/* en bas */
+		if(ord<(n-1))
+		{ 
+			if ((couleur==p[abs][ord+1]) && (t[abs][ord+1]==0))
+			{ ajout(pi, abs, ord+1)
+			}
+		}
+	}
+	supprime_pi(pi);
+	return t;
+}
+	
+	
 /*----------------------------------------------------------------------------------*/
 /* @requires : Nécessite un plateau
    @assigns : Rien
