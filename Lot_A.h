@@ -40,4 +40,6 @@ plateau tache(plateau p, plateau t);
 
 int victoire(plateau P);
 
+void colorie_tache(plateau p, plateau t, int c );
+
 #endif
