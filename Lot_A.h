@@ -12,13 +12,13 @@ plateau new(int n);
 
 plateau aleatoire(int n, int couleurs);
 
-void changement_couleur(plateau P, int i, int j, int couleur);
+void changement_couleur(plateau *P, int i, int j, int couleur);
 
 void affiche(plateau P);
 
-void supprime(plateau P);
+void supprime(plateau *P);
 
-void sauvegarder(plateau p);
+void sauvegarder(plateau *p);
 
 plateau reprise(int n, int m);
 
@@ -32,14 +32,14 @@ typedef struct pile pile;
 
 pile new_pile (int n);
 
-void supprime_pi(pile pi);
+void supprime_pi(pile *pi);
 
-void ajout(pile pi, int x, int y);
+void ajout(pile *pi, int x, int y);
 
-plateau tache(plateau p, plateau t);
+plateau tache(plateau *p, plateau *t);
 
 int victoire(plateau P);
 
-void colorie_tache(plateau p, plateau t, int c );
+void colorie_tache(plateau *p, plateau *t, int c );
 
 #endif
