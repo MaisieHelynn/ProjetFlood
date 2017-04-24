@@ -343,7 +343,8 @@ int main(){
   }
   /* tableau de 1*1 case, donc sûr de gagner */
   printf("%s", (victoire(aleatoire(1,6))) ? "Gagné !" : "Pas gagné...");
-	/* TESTS INITIALISATION FICHIER + SAUVEGARDE */
+	
+	/* TESTS INITIALISATION FICHIER + SAUVEGARDE + SUPPRESSION */
   sauvegarder(P);
   supprime(P);
   affiche(P);/* ca affiche n'importe quoi -> normal car la memoire de P a été libérée */
