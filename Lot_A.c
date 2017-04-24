@@ -302,3 +302,27 @@ int victoire(plateau P){
 	}
 	return cond;
 }
+
+/*----------------------------------------------------------------------------------*/
+/* @requires : Nécessite un plateau de jeu p et une tache (peut importe son contenu) et un int correspondant a la nouvelle couleur
+   @assigns : modifie t (recalcule la composante connexe avant changement de couleur); modifie p en changeant la couleur de la composante connexe
+   @ensures :Rien */
+/*----------------------------------------------------------------------------------*/
+void colorie_tache(plateau p, plateau t, int c ){
+  int n= t.taille;
+  int i;
+  int j;
+  for (j=0; j<n; j++){
+    for (i=0; i<n; i++){
+      t.contenu[i][j]=0;
+    }
+  } /* on a initialisé la tache a une tache vide */
+  t=tache(p,t);
+  for (j=0; j<n; j++){
+    for (i=0; i<n; i++){
+      if(t.contenu[i][j]==1){
+	changement_couleur(p, i, j, c);
+      }
+    }
+  }
+}
