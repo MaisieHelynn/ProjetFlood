@@ -15,6 +15,16 @@ struct plateau{
 typedef struct plateau plateau;
 
 /*----------------------------------------------------------------------------------*/
+/* On définit le type coordonnees représenté par une matrice de taille 4x2 */
+/*----------------------------------------------------------------------------------*/
+
+struct coordonnees{ /* n = taille de la matrice */
+  int **contenu; /* Représente le contenu d'une case */
+};
+
+typedef struct coordonnees coordonnees;
+
+/*----------------------------------------------------------------------------------*/
 /* @requires : Nécessite un entier n >0 qui sera la taille du plateau
    @assigns : Attribue n^2 cases mémoires pour les cases 
    @ensures : Crée une matrice de taille n ne contenant que des 0 */
@@ -29,6 +39,22 @@ plateau new(int n){
   P.contenu[i] = calloc(n, sizeof(int)); /* On crée la deuxième dimension de la matrice */
   }
   return(P);
+}
+
+/*----------------------------------------------------------------------------------*/
+/* @requires : Rien
+   @assigns : Attribue n^2 cases mémoires pour les cases 
+   @ensures : Crée une matrice de taille 4*2 ne contenant que des 0 */
+/*----------------------------------------------------------------------------------*/
+
+coordonnees new_coordonnees(){
+  coordonnees C;
+  C.contenu = malloc(sizeof(int *) *4); /* On crée la première dimension de la matrice */
+  int i;
+  for (i=0; i<4; i++){
+  C.contenu[i] = calloc(2, sizeof(int)); /* On crée la deuxième dimension de la matrice */
+  }
+  return(C);
 }
 
 /*----------------------------------------------------------------------------------*/
@@ -82,6 +108,91 @@ void affiche(plateau P){
     printf("\n");  
 }
 
+/*----------------------------------------------------------------------------------*/
+/* @requires : Nécessite une matrice de coordonnées
+   @assigns : Rien
+   @ensures : Affiche la matrice */
+/*----------------------------------------------------------------------------------*/
+
+int aff_coord(coordonnees C){
+  int i;
+  int j;
+  for (i=0; i<4; i++){
+    for (j=0;j<2;j++){
+      int c=C.contenu[i][j];
+      printf("%i ",c);
+    };
+    printf("\n");
+  };
+  printf("\n");
+  return(0);
+}
+
+/*----------------------------------------------------------------------------------*/
+/* @requires : Nécessite un plateau et une case (x,y)
+   @assigns : Rien
+   @ensures : Renvoie les coordonnées des cases voisines de (x,y) si elles existent, 
+              les remplace par le couple (-1,-1) sinon. La matrice est remplie dans 
+              l'ordre suivant : Haut, Gauche, Bas, Droite, en numérotant les lignes
+              et colonnes telles qu'on le ferait dans une matrice (ie. l'origine est
+              en haut à gauche et on incrémente vers le bas et vers la droite). Dans 
+              le couple (a,b), a représente le numéro de ligne, et b celui de colonne. */
+/*----------------------------------------------------------------------------------*/
+
+coordonnees voisins(plateau P, int x, int y){
+  int n=P.taille;
+  coordonnees C=new_coordonnees();
+  int i;
+  int h=x-1;
+  int g=y-1;
+  int b=x+1;
+  int d=y+1;
+  for (i=0;i<4;i++){
+    C.contenu[i][0]=-1;
+    C.contenu[i][1]=-1;
+  }
+  if(h>=0){
+    C.contenu[0][0]=h;
+    C.contenu[0][1]=y;
+  }
+  if(g>=0){
+    C.contenu[1][0]=x;
+    C.contenu[1][1]=g;
+  }
+  if(b<n){
+    C.contenu[2][0]=b;
+    C.contenu[2][1]=y;
+  }
+  if(d<n){
+    C.contenu[3][0]=x;
+    C.contenu[3][1]=d;
+  }
+return C;
+}
+
+/*----------------------------------------------------------------------------------*/
+/* @requires : Nécessite un plateau et une case (x,y)
+   @assigns : Rien
+   @ensures : Renvoie les coordonnées des cases voisines de (x,y) qui sont de même couleur,
+              et les remplace par (-1,-1) sinon */
+/*----------------------------------------------------------------------------------*/
+
+coordonnees connexe(plateau P, int x, int y){
+  coordonnees C=voisins(P,x,y);
+  int couleur=P.contenu[x][y];
+  int i;
+  for (i=0;i<4;i++){
+    int a=C.contenu[i][0];
+    int b=C.contenu[i][1];
+    if (a!=-1 && P.contenu[a][b] != couleur){
+      C.contenu[i][0]=-1;
+      C.contenu[i][1]=-1;
+    }
+  }
+  return C;
+}
+
+
 
 /*----------------------------------------------------------------------------------*/
 /* @requires : Nécessite un plateau
@@ -97,6 +208,20 @@ void supprime(plateau P){
   free((int**)P.contenu);
 }
   
+/*----------------------------------------------------------------------------------*/
+/* @requires : Nécessite une matrice de coordonnées
+   @assigns : libère l'espace mémoire
+   @ensures : rien */
+/*----------------------------------------------------------------------------------*/
+
+void sup_coord(coordonnees C){
+	int i;
+	for (i=0; i<4;i++){
+		free((int *)C.contenu[i]);
+	}
+	free((int**)C.contenu);
+}
+
 /*----------------------------------------------------------------------------------*/
 /* @requires : Nécessite un plateau
    @assigns : Sauvegarde le plateau dans un fichier : la première ligne correspond à la taille,
@@ -165,19 +290,61 @@ plateau reprise(int n, int m){
       }      
     }
 }
+
+/*----------------------------------------------------------------------------------*/
+/* @requires : Nécessite un plateau
+   @assigns : Rien
+   @ensures : Renvoie TRUE (=1) si le plateau est d'une couleur unique, FALSE (=0) sinon */
+/*----------------------------------------------------------------------------------*/
+
+int victoire(plateau P){
+	int cond = (0==0);
+	int n = P.taille;
+	int couleur = P.contenu[0][0];
+	int i;
+	int j;
+	i = 0;
+	while (cond && i < n) {
+		j = 0;
+		while (cond && j < n) {
+			if (couleur != P.contenu[i][j]) {
+				cond = (0==1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return cond;
+}
 	
-	      
-  
+	    
 
 /* Pour faire des tests */
 
 int main(){
+	/* TESTS PLATEAU */
   plateau p_2 = reprise(1,1);
   affiche(p_2);
   plateau P=aleatoire(3,4);
   affiche(P);
+	/* TESTS VOISINS ET COULEURS */
+  coordonnees V=voisins(P,1,1);
+  aff_coord(V);
+  coordonnees C=connexe(P,1,1);
+  aff_coord(C);
   changement_couleur(P,2,1,18);
   affiche(P);
+	/* TESTS VICTOIRE */
+  if (victoire(P)) {
+    printf("Gagné !\n");
+  }
+  else {
+    printf("Pas gagné...\n");
+  }
+  /* tableau de 1*1 case, donc sûr de gagner */
+  printf("%s", (victoire(aleatoire(1,6))) ? "Gagné !" : "Pas gagné...");
+	
+	/* TESTS INITIALISATION FICHIER + SAUVEGARDE + SUPPRESSION */
   sauvegarder(P);
   supprime(P);
   affiche(P);/* ca affiche n'importe quoi -> normal car la memoire de P a été libérée */
