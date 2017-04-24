@@ -1,4 +1,6 @@
 #include "Lot_A.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 int main(){
 	/* TESTS PLATEAU */
@@ -6,11 +8,7 @@ int main(){
   affiche(p_2);
   plateau P=aleatoire(3,4);
   affiche(P);
-	/* TESTS VOISINS ET COULEURS */
-  coordonnees V=voisins(P,1,1);
-  aff_coord(V);
-  coordonnees C=connexe(P,1,1);
-  aff_coord(C);
+	/* TESTS COULEURS */
   changement_couleur(P,2,1,18);
   affiche(P);
 	/* TESTS VICTOIRE */
