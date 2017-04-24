@@ -2,7 +2,7 @@
    * \file  Lot_A.c
    * \brief Lot A du Flood
    * \date 24 Avril 2017
-   * \author {AMSELLEM Elyne, CHOLLET Remi, JAMOUS Remi, MEHENNI Sylia}
+   * \author {AMSELLEM Elyne, CHOLLET Simon, JAMOUS Remi, MEHENNI Sylia}
   */
 #include <stdio.h>
 #include <stdlib.h>
