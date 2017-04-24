@@ -16,3 +16,4 @@ Remarques :
 
 - Le "main" contient uniquement des tests, et les tests spécifiques sont réalisés dans le fichier "testunitaire.c"
 
+L'archive html contient les différents documents obtenu par Doxygen, il suffit d'ouvrir les .html qui mènent à une page web contenant les commentaires. 
