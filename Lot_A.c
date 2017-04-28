@@ -71,7 +71,7 @@ plateau aleatoire(int n, int couleurs){
 
 /*----------------------------------------------------------------------------------*/
 /*! 
-* \fn void changement_couleur(plateau P, int i, int j, int couleur)
+* \fn void changement_couleur(plateau *P, int i, int j, int couleur)
 * \param Nécessite un plateau, une case ([i][j]) et une nouvelle couleur
 * \return Rien  
 */
@@ -105,7 +105,7 @@ void affiche(plateau P){
 
 /*----------------------------------------------------------------------------------*/
 /*! 
-* \fn void supprime(plateau P)
+* \fn void supprime(plateau *P)
 * \param Nécessite un plateau
 * \return Rien 
 */
@@ -122,7 +122,7 @@ void supprime(plateau *P){
 
 /*----------------------------------------------------------------------------------*/
 /*! 
-* \fn void sauvegarder(plateau p)
+* \fn void sauvegarder(plateau *p)
 * \param Nécessite un plateau
 * \return Rien 
 * \brief Sauvegarde le plateau dans un fichier : la première ligne correspond à la taille,
@@ -237,7 +237,7 @@ pile new_pile(int n){
 
 /*----------------------------------------------------------------------------------*/
 /*! 
-* \fn void supprime_pi(pile pi)
+* \fn void supprime_pi(pile *pi)
 * \param une pile pi
 * \return Rien
 * \brief Libere la memoire d'une pile
@@ -250,7 +250,7 @@ void supprime_pi(pile *pi){
 
 /*----------------------------------------------------------------------------------*/
 /*! 
-* \fn void ajout(pile pi, int x, int y)
+* \fn void ajout(pile *pi, int x, int y)
 * \param une pile pi et 2 entiers correspondants aux coordonées
 * \return Rien
 * \brief Ajoute le couple d'elements et incrémente la taille de la pile
@@ -265,7 +265,7 @@ void ajout(pile *pi, int x, int y){
 	
 /*----------------------------------------------------------------------------------*/
 /*! 
-* \fn plateau tache(plateau p, plateau t)
+* \fn void tache(plateau *p, plateau *t)
 * \param p un plateau correspondant au plateau de jeu et t un autre plateau qui correspond a l'ancienne tache (t[i][j]==1 si ce point appartient a la tache et 0 sinon)
 * \return la nouvelle tache  
 * \brief Alloue la memoire pour une pile puis la detruit; modifie la matrice de la tache
@@ -345,7 +345,7 @@ int victoire(plateau P){
 
 /*----------------------------------------------------------------------------------*/
 /*! 
-* \fn void colorie_tache(plateau p, plateau t, int c )
+* \fn void colorie_tache(plateau *p, plateau *t, int c )
 * \param Nécessite un plateau de jeu p et une tache (peut importe son contenu) et un int correspondant a la nouvelle couleur
 * \return Rien 
 * \brief Modifie t (recalcule la composante connexe avant changement de couleur); modifie p en changeant la couleur de la composante connexe
