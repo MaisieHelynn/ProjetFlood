@@ -30,5 +30,7 @@ int main(){
 		aff(jeu);		
 		printf("Perdu...\n");
 	}
+	supprime(&jeu);
+	supprime(&tache);
 	return(0);
 };
