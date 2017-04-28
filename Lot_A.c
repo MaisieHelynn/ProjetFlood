@@ -152,8 +152,7 @@ void sauvegarder(plateau *p){
 /*----------------------------------------------------------------------------------*/
 /*! 
 * \fn plateau reprise(int n, int m)
-* \param De préférence un fichier sauvegarde_partie.txt, s'il n'y en a pas la fonction renvera un plateau aléatoire de taille n avec m couleurs
-/* Remarque : la sauvegarde doit correspondre a un plateau de taille et de nombre de couleurs inférieur à 100*\
+* \param De préférence un fichier sauvegarde_partie.txt, s'il n'y en a pas la fonction renvera un plateau aléatoire de taille n avec m couleurs. Remarque : la sauvegarde doit correspondre a un plateau de taille et de nombre de couleurs inférieur à 100
 * \return Le plateau enregistré ( si présent ) ou un plateau aléatoire s'il n'y avait pas de fichier ou un probleme 
 * \brief Récupère le plateau sauvegardé dans un fichier sans le modifier   
 */

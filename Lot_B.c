@@ -57,7 +57,6 @@ void barre(int n){
 }
 
 void aff(plateau P){
-	printf("\n\n\n");
 	printf("\n");
 	int i;
 	int j;
@@ -72,5 +71,50 @@ void aff(plateau P){
 			printf("\n");
 	}
 	barre(n);
-	printf("\n\n\n");
+	printf("\n");
+}
+
+int etape(plateau *P, plateau *T) {
+  char c;
+  int couleur = -1;
+  char buffer[2]; /* 2 car 1 caractère PLUS le \0 des chaînes */
+  printf("Choisir une couleur :\n(B) pour bleu\n(R) pour rouge\n(G) pour gris\n(M) pour marron\n(J) pour jaune\n(V) pour vert\n");
+  scanf("%1s", buffer);
+  c=buffer[0];
+  switch (c) {
+    case 'B':
+    case 'b':
+    couleur=2;
+    break;
+    case 'V':
+    case 'v':
+    couleur=1;
+    break;
+    case 'R':
+    case 'r':
+    couleur=0;
+    break;
+    case 'G':
+    case 'g':
+    couleur=4;
+    break;
+    case 'J':
+    case 'j':
+    couleur=3;
+    break;
+    case 'M':
+    case 'm':
+    couleur=5;
+    break;
+    default: printf("Ce n'est pas une couleur valable.");
+    break;
+  }
+  if(couleur > -1 && P->contenu[0][0] != couleur) {
+	  colorie_tache(P,T,couleur);
+	  return (1==1);
+  }
+  else {
+	  return (1==0);
+  }
+  return(1==0);
 }
