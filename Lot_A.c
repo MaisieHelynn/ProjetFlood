@@ -54,7 +54,7 @@ plateau new(int n){
 
 
 plateau aleatoire(int n, int couleurs){
-  /* srand(time(NULL));*/
+  srand(time(NULL));
   /* Réinitialise la fonction rand() en fonction de l'heure pour assurer le caractère aléatoire */
   plateau P =new(n);
   int i;
