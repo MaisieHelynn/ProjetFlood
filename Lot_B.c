@@ -104,12 +104,13 @@ void aff(plateau P){
 * \param Nécessite 2 plateaux de jeu, un stocké en mémoire et l'autre qui sera le nouveau plateau colorié
 * \return entier 0 ou 1 (booléen)
 * \brief 0 si false, 1 si true 
+* \rmq buffer sert de variable tampon pour stocker 1 caractère + le \0 qui sépare les chaînes de caractères
 */
 /*----------------------------------------------------------------------------------*/
 int etape(plateau *P, plateau *T) {
   char c;
   int couleur = -1;
-  char buffer[2]; /* 2 car 1 caractère PLUS le \0 des chaînes */
+  char buffer[2]; 
   printf("Choisir une couleur :\n(B) pour bleu\n(R) pour rouge\n(G) pour gris\n(M) pour marron\n(J) pour jaune\n(V) pour vert\n");
   scanf("%1s", buffer);
   c=buffer[0];
