@@ -9,6 +9,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn void initialisation(int* n, int* tour_max)
+* \param Nécessite un entier n>1 qui sera la taille du plateau et <100
+* \return none
+* \brief Attribue 2 cases mémoires pour la taille et le nombre de coups 
+*/
+/*----------------------------------------------------------------------------------*/
 void initialisation(int* n, int* tour_max) {
 	int ret = 0;
 	*n = -1;
@@ -47,6 +55,14 @@ void initialisation(int* n, int* tour_max) {
 
 char couleurs[6] = {'R', 'V', 'B', 'J', 'G', 'M'};
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn void barre(int n)
+* \param Nécessite un entier n qui sera la taille du plateau
+* \return none
+* \brief affiche à l'écran des caractères - et + pour afficher la grille
+*/
+/*----------------------------------------------------------------------------------*/
 void barre(int n){
 	int i;
 	printf("+");
@@ -56,6 +72,14 @@ void barre(int n){
 	printf("\n");
 }
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn void aff(plateau P)
+* \param Nécessite un plateau de jeu
+* \return none
+* \brief affiche le plateau à l'écran
+*/
+/*----------------------------------------------------------------------------------*/
 void aff(plateau P){
 	printf("\n");
 	int i;
@@ -74,6 +98,14 @@ void aff(plateau P){
 	printf("\n");
 }
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn int etape(plateau *P, plateau *T)
+* \param Nécessite 2 plateaux de jeu, un stocké en mémoire et l'autre qui sera le nouveau plateau colorié
+* \return entier 0 ou 1 (booléen)
+* \brief 0 si false, 1 si true 
+*/
+/*----------------------------------------------------------------------------------*/
 int etape(plateau *P, plateau *T) {
   char c;
   int couleur = -1;
