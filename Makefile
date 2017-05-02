@@ -2,10 +2,7 @@ CC=gcc
 CFLAGS=-W -Wall -ansi
 LDFLAGS=
 
-all: testB test
-
-test:
-	gcc testunitaire.c  Lot_A.c  -o testunitaire -I /usr/local/Cellar/cunit/2.1-3/include/ -lCUnit -L /usr/local/Cellar/cunit/2.1-3/lib/
+all: testB
 
 testA: main.o Lot_A.o
 	$(CC) -o $@ $^ $(LDFLAGS)
