@@ -24,6 +24,14 @@
 
 typedef struct pile_couleur pile_couleur;
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn new_pile_couleur(int n)
+* \param Nécessite un entier
+* \return Crée une pile
+*/
+/*----------------------------------------------------------------------------------*/
+
 pile_couleur new_pile_couleur(int n) {
   pile_couleur pc;
   pc.taille=-1;
