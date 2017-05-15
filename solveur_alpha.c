@@ -1,6 +1,6 @@
 /*!
 * \file  solveur_alpha.c
-* \brief Solveur
+* \brief Solveur Alpha
 * \date 15 Mai 2017
 * \author {AMSELLEM Elyne, CHOLLET Simon, JAMOUS Remi, MEHENNI Sylia}
 */
