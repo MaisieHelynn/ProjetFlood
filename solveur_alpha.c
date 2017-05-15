@@ -1,9 +1,22 @@
+/*!
+* \file  solveur_alpha.c
+* \brief Solveur
+* \date 15 Mai 2017
+* \author {AMSELLEM Elyne, CHOLLET Simon, JAMOUS Remi, MEHENNI Sylia}
+*/
+
 #include "Lot_A.h"
 #include "Lot_B.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-/* 0 faux et !=0 vrai en c */
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \struct pile_couleur
+* \brief 0 faux et !=0 vrai en c */
+*/
+/*----------------------------------------------------------------------------------*/
+
  struct pile_couleur {
    int taille;
    int *element;
@@ -18,9 +31,26 @@ pile_couleur new_pile_couleur(int n) {
   return pc;
 }
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn est_vide(pile_couleur pc)
+* \param Nécessite une pile pc
+* \return Vrai si la pile est vide, Faux sinon
+*/
+/*----------------------------------------------------------------------------------*/
+
 int est_vide(pile_couleur pc) {
   return(pc.taille==-1);
 }
+
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn depile(pile_couleur *pc)
+* \param Nécessite une pile *pc
+* \return Enlève le sommet de la pile
+*/
+/*----------------------------------------------------------------------------------*/
+
 /* rappel : on suppose pile non vide */
 int depile(pile_couleur *pc)  {/* pile* p : elt de type pointeur vers pile
 pile *p: type et pointeur  (implique )*/
@@ -28,15 +58,39 @@ pile *p: type et pointeur  (implique )*/
   return(pc->element[pc->taille+1]);
 }
 
-/* on suppose que la pile en argument n'ets pas pleine */
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn empile(pile_couleur *pc, int element)
+* \param Nécessite une pile *pc et un élément
+* \return Rien : Ajoute l'élément au sommet de la pile
+*/
+/*----------------------------------------------------------------------------------*/
+
+/* on suppose que la pile en argument n'est pas pleine */
 void empile(pile_couleur *pc, int element) {
   pc->taille=pc->taille+1;
   pc->element[pc->taille]=element;
 }
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn supprime_pile(pile_couleur *pc)
+* \param Nécessite une pile *pc
+* \return Rien : Supprime la pile (libère l'espace mémoire alloué)
+*/
+/*----------------------------------------------------------------------------------*/
+
 void supprime_pile(pile_couleur *pc) {
   free((int*)pc->element);
 }
+
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn trouve(pile_couleur *pc)
+* \param Nécessite une pile *pc
+* \return Rien :  trouve une solution au problème
+*/
+/*----------------------------------------------------------------------------------*/
 
 void trouve(pile_couleur *pc) {
   char couleurs[6];
@@ -62,6 +116,14 @@ void trouve(pile_couleur *pc) {
   supprime_pile(&stock);
 }
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn comparaison_plateau(plateau p1, plateau p2)
+* \param Nécessite deux plateaux
+* \return Renvoie Vrai si les deux plateaux sont égaux, Faux sinon
+*/
+/*----------------------------------------------------------------------------------*/
+
 int comparaison_plateau(plateau p1, plateau p2) {
   int n = p1.taille;
   int i;
@@ -75,6 +137,14 @@ int comparaison_plateau(plateau p1, plateau p2) {
   }
   return (1==1);
 }
+
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn solveur_beta(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_tache)
+* \param un plateau, un entier (nombre de coups), une pile et une tache colorée
+* \return Rien : Solveur
+*/
+/*----------------------------------------------------------------------------------*/
 
 void solveur_beta(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_tache) {
   int t = pc->taille;
