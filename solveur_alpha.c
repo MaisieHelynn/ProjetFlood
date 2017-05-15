@@ -104,7 +104,7 @@ void solveur_beta(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_
 	     	colorie_tache(&nouveau, &nouvelle_tache, i);
 	     	if(!comparaison_plateau(nouvelle_tache, copie_tache)) {
 	       		empile(pc, i);
-	         	solveur_beta(nouveau, nb_coups, pc, nouvelle_tache); // appel recursif
+	         	solveur_beta(nouveau, nb_coups, pc, nouvelle_tache);
 				depile(pc);
 			}
 	     }
@@ -115,7 +115,7 @@ void solveur_beta(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_
 }
 
 int main() {
-  int n = 4; // taille plateau à changer
+  int n = 4;
   plateau jeu = aleatoire(n, 6);
   plateau tache = new(n);
   pile_couleur pc;

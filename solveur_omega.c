@@ -154,7 +154,7 @@ void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_
 	     	colorie_tache(&nouveau, &nouvelle_tache, ordre[i]);
 	     	if(!comparaison_plateau(nouvelle_tache, copie_tache)) {
 	       		empile(pc, ordre[i]);
-	         	solveur_opti(nouveau, nb_coups, pc, nouvelle_tache); // appel recursif
+	         	solveur_opti(nouveau, nb_coups, pc, nouvelle_tache);
 				depile(pc);
 			}
 	     }
@@ -165,7 +165,7 @@ void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_
 }
 
 int main() {
-  int n = 7; // taille plateau
+  int n = 4;
   plateau jeu = aleatoire(n, 6);
   plateau tache = new(n);
   pile_couleur pc;
