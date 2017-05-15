@@ -1,9 +1,21 @@
+/*!
+* \file  solveur_omega.c
+* \brief Solveur Omega
+* \date 15 Mai 2017
+* \author {AMSELLEM Elyne, CHOLLET Simon, JAMOUS Remi, MEHENNI Sylia}
+*/
+
 #include "Lot_A.h"
 #include "Lot_B.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-/* 0 faux et !=0 vrai en c */
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \struct pile_couleur
+* \brief 0 faux et !=0 vrai en c */
+*/
+/*----------------------------------------------------------------------------------*/
  struct pile_couleur {
    int taille;
    int *element;
@@ -11,16 +23,38 @@
 
 typedef struct pile_couleur pile_couleur;
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn new_pile_couleur(int n)
+* \param Nécessite un entier
+* \return Crée une pile
+*/
+/*----------------------------------------------------------------------------------*/
+
 pile_couleur new_pile_couleur(int n) {
   pile_couleur pc;
   pc.taille=-1;
   pc.element=malloc(sizeof(int)*n);
   return pc;
 }
-
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn est_vide(pile_couleur pc)
+* \param Nécessite une pile pc
+* \return Vrai si la pile est vide, Faux sinon
+*/
+/*----------------------------------------------------------------------------------*/
 int est_vide(pile_couleur pc) {
   return(pc.taille==-1);
 }
+
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn depile(pile_couleur *pc)
+* \param Nécessite une pile *pc
+* \return Enlève le sommet de la pile
+*/
+/*----------------------------------------------------------------------------------*/
 /* rappel : on suppose pile non vide */
 int depile(pile_couleur *pc)  {/* pile* p : elt de type pointeur vers pile
 pile *p: type et pointeur  (implique )*/
@@ -28,15 +62,39 @@ pile *p: type et pointeur  (implique )*/
   return(pc->element[pc->taille+1]);
 }
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn empile(pile_couleur *pc, int element)
+* \param Nécessite une pile *pc et un élément
+* \return Rien : Ajoute l'élément au sommet de la pile
+*/
+/*----------------------------------------------------------------------------------*/
+
 /* on suppose que la pile en argument n'ets pas pleine */
 void empile(pile_couleur *pc, int element) {
   pc->taille=pc->taille+1;
   pc->element[pc->taille]=element;
 }
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn supprime_pile(pile_couleur *pc)
+* \param Nécessite une pile *pc
+* \return Rien : Supprime la pile (libère l'espace mémoire alloué)
+*/
+/*----------------------------------------------------------------------------------*/
+
 void supprime_pile(pile_couleur *pc) {
   free((int*)pc->element);
 }
+
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn trouve(pile_couleur *pc)
+* \param Nécessite une pile *pc
+* \return Rien :  Affiche la solution
+*/
+/*----------------------------------------------------------------------------------*/
 
 void trouve(pile_couleur *pc) {
   char couleurs[6];
@@ -62,6 +120,14 @@ void trouve(pile_couleur *pc) {
   supprime_pile(&stock);
 }
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn comparaison_plateau(plateau p1, plateau p2)
+* \param Nécessite deux plateaux
+* \return Renvoie Vrai si les deux plateaux sont égaux, Faux sinon
+*/
+/*----------------------------------------------------------------------------------*/
+
 int comparaison_plateau(plateau p1, plateau p2) {
   int n = p1.taille;
   int i;
@@ -76,6 +142,14 @@ int comparaison_plateau(plateau p1, plateau p2) {
   return (1==1);
 }
 
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn somme(plateau p)
+* \param Nécessite un plateau
+* \return Renvoie la somme des cases du plateau
+*/
+/*----------------------------------------------------------------------------------*/
+
 int somme(plateau p){
 	int n = p.taille;
     int i;
@@ -88,6 +162,16 @@ int somme(plateau p){
 	}
 	return s;
 }
+
+
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn tri(int tab[], int res[])
+* \param Nécessite deux tableaux
+* \return : Tri le tableau tab[] par ordre décroissant sans le modifier, et ordonnant 
+		dans le tableau res[] les indices des éléments de tab[] ainsi triés
+*/
+/*----------------------------------------------------------------------------------*/
 
 void tri(int tab[], int res[]) {
 	int i;
@@ -107,6 +191,14 @@ void tri(int tab[], int res[]) {
 		tab[pos] = 0;
 	}
 }
+
+/*----------------------------------------------------------------------------------*/
+/*! 
+* \fn solveur_beta(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_tache)
+* \param un plateau, un entier (nombre de coups), une pile et une tache colorée
+* \return Rien : Solveur
+*/
+/*----------------------------------------------------------------------------------*/
 
 void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_tache) {
   int t = pc->taille;
