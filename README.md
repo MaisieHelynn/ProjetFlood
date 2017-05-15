@@ -20,3 +20,16 @@ Remarques :
 - Le "main" contient uniquement des tests.
 
 L'archive html contient les différents documents obtenu par Doxygen, il suffit d'ouvrir les .html qui mènent à une page web contenant les commentaires. 
+
+
+
+
+ATTENTION : pour la livraison du lot C :
+
+L'archive contient 1 Makefile qui permettent de compiler :
+
+- le solveur naïf lorsque l'on tape "make", cela lance l'éxécutable Testsolveur
+
+- le solveur optimisé lorsque l'on tape "make testSolveurOpti", cela lance l'éxécutable testSolveurOpti
+
+Ainsi vous avez accès aux deux versions avec chaque solveur et vous pouvez les comparer. 
