@@ -96,7 +96,7 @@ void supprime_pile(pile_couleur *pc) {
 /*! 
 * \fn trouve(pile_couleur *pc)
 * \param Nécessite une pile *pc
-* \return Rien :  trouve une solution au problème
+* \return Rien :  Affiche la solution
 */
 /*----------------------------------------------------------------------------------*/
 
