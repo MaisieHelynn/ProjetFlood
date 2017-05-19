@@ -72,7 +72,6 @@ void drawRectangle(SDL_Surface *ecran, int px, int py, int size, int r, int g, i
     rect.y=py;
     rect.h=rect.w=size;
     SDL_FillRect(ecran, &rect, SDL_MapRGB(ecran->format, r, g, b));
-    SDL_Flip(ecran);
 }
 
 
@@ -96,6 +95,7 @@ void affiche_plateau(SDL_Surface *ecran, plateau p){
       affiche_carre(ecran, x, y, p, div);
     }
   }
+  SDL_Flip(ecran);
 }
 
 void fillScreen(SDL_Surface *ecran, int r, int g, int b) {
@@ -158,27 +158,11 @@ int colorie_tache_graphic(plateau *p, plateau *t, couleur c ){
   if((c.r==100)&&(c.g==100)&&(c.b==100)){co=4;}
   if((c.r==100)&&(c.g==50)&&(c.b==0)){co=5;}
   colorie_tache(p, t, co);  
-  /*if (co==(p->contenu[0][0])){return (1==0);}// la nouvelle couleur correspond a la couleur de la tache actuelle
+  if (co==(p->contenu[0][0])){return (1==0);}// la nouvelle couleur correspond a la couleur de la tache actuelle
   else {
-    int n= t->taille;
-    int i;
-    int j;
-    for (j=0; j<n; j++){
-      for (i=0; i<n; i++){
-	t->contenu[i][j]=0;
-      }
-    }
-    tache(p,t);
-    for (j=0; j<n; j++){
-      for (i=0; i<n; i++){
-	if(t->contenu[i][j]==1){
-	  changement_couleur(p, i, j, co);
-	}
-      }
-    }
+  colorie_tache(p, t, co);
+  return (0==0);
   }
-	*/
-    return (0==0); //il y a bien eu un changement de couleur
 }
 
 
