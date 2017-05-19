@@ -13,8 +13,6 @@
  compilation sur Mac : gcc -o test -I/Library/Frameworks/SDL.framework/Headers ipi2_interface.c Lot_A.c Lot_B.c SDLmain.m -framework SDL -framework Cocoa
 */
 
-int autoDraw=0;
-
 struct couleur {
   int r;
   int g;
@@ -145,7 +143,6 @@ couleur read_couleur(SDL_Surface *ecran){
   default :
     break;
   }
-  printf("%d %d %d",res.r, res.g, res.b);
   return res;
 }
   
@@ -157,8 +154,9 @@ int colorie_tache_graphic(plateau *p, plateau *t, couleur c ){
   if((c.r==255)&&(c.g==255)&&(c.b==0)){co=3;}
   if((c.r==100)&&(c.g==100)&&(c.b==100)){co=4;}
   if((c.r==100)&&(c.g==50)&&(c.b==0)){co=5;}
-  colorie_tache(p, t, co);  
-  if (co==(p->contenu[0][0])){return (1==0);}// la nouvelle couleur correspond a la couleur de la tache actuelle
+  if (co==(p->contenu[0][0])){
+	  return (1==0);
+  } // la nouvelle couleur correspond a la couleur de la tache actuelle
   else {
   colorie_tache(p, t, co);
   return (0==0);
@@ -182,16 +180,15 @@ int main(){
   while (tour < tour_max && !vict) {
     system("clear");
     aff(jeu);
-    affiche_plateau(ecran,jeu);
-    
     printf("\nTour : %d sur %d\n\n", tour, tour_max);
+    affiche_plateau(ecran,jeu);
     /* ici ********************/
     //if (etape(&jeu, &tache)) {
     //tour++;
     //}
     c=read_couleur(ecran);
     if ((c.r==-1)||(c.g==-1)){
-      printf("Abandon de la partie");
+      printf("Abandon de la partie\n");
       tour=tour_max+1;
     }
     //if (c.r==-1){
@@ -201,12 +198,12 @@ int main(){
     
     else if ((c.r==0)&&(c.g==0)&&(c.b==0)){
       // la couleur est noire (entre 2 case)
-      printf("veuillez cliquer sur une couleur");
+      printf("Veuillez cliquer sur une couleur\n");
     }
     else{
       if(colorie_tache_graphic(&jeu, &tache, c)==1){
       tour++;}
-      else {printf("c'était déjà cette couleur");}
+      else {printf("C'était déjà cette couleur\n");}
     }
     
     /**************************/
@@ -225,138 +222,4 @@ int main(){
   supprime(&jeu);
   supprime(&tache);
   return(0);
-};
-
-
-/*
-int main3() {
-  int n=3;
-  plateau p =aleatoire(n,6);
-  plateau tache= new(n);
-  int continuer = 1;
-  SDL_Surface *ecran = NULL;
-  couleur c;
-  int vict = victoire(p);
-  ecran=SDL_SetVideoMode(500, 500, 32, SDL_HWSURFACE);
-  SDL_WM_SetCaption("interface graphique", NULL);
-  
-  fillScreen(ecran, 0,0,0);
-    
-  while (continuer ==1){
-    affiche_plateau(ecran,p);
-    vict=victoire(p);
-    if (vict==1){
-      continuer=0;
-      printf("victoire \n");
-    }
-    else {
-      c=read_couleur(ecran);
-      if ((c.r==-1) || (c.g==-1)){
-	continuer=0;
-      }
-      else {
-	colorie_tache_graphic(&p,&tache,c); 
-      }
-    }
-  }
-  SDL_Quit( );
-  return 0;
-}
-
-
-*/
-
-int main2() {
-  plateau p =aleatoire(5,6);
-  int continuer = 1;
-  SDL_Surface *ecran = NULL;
-  SDL_Event event;
-  const SDL_VideoInfo* info = NULL;
-  /* SDL_Surface *ima=NULL;*/
-  
-  /* initialisation de la fenêtre d'affichage*/
-  if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
-    /* Failed, exit. */
-    fprintf( stderr, "Video initialization failed: %s\n", SDL_GetError( ) );
-    SDL_Quit( );
-  }
-  info = SDL_GetVideoInfo( );
-  if( !info ) {
-    /* This should probably never happen. */
-    fprintf( stderr, "Video query failed: %s\n", SDL_GetError( ) );
-    SDL_Quit( );
-  }
-    ecran=SDL_SetVideoMode(500, 500, 32, SDL_HWSURFACE);
-	SDL_WM_SetCaption("exemple SDL", NULL);
-    
-    fillScreen(ecran, 0,0,0);
-    
-    while (continuer) {
-        SDL_WaitEvent(&event);
-        switch(event.type) {
-	    case SDL_QUIT:
-                continuer = 0;
-                break;
-            case SDL_KEYDOWN: /* gestion des évènements clavier*/
-            	switch (event.key.keysym.sym) {
-		case SDLK_m:
-		  affiche_plateau(ecran,p);
-		  break;
-            		case SDLK_d:
-                        drawRectangle(ecran, 3, 300, 30, 255, 0, 0);
-                        drawRectangle(ecran, 36, 300, 30, 0, 255, 0);
-                        drawRectangle(ecran, 69, 300, 30, 0, 0, 255);
-                        
-                        break;
-            		case SDLK_e:
-                        fillScreen(ecran, 255,0,255);
-						break;
-                    case SDLK_r:
-                        fillScreen(ecran, 0,0,0);
-                        
-                        break;
-            		case SDLK_ESCAPE:
-			  continuer=0; break;
-		default:
-		  break;
-            	}
-            	break;
-                
-            case SDL_MOUSEBUTTONDOWN:
-                if (event.button.button == SDL_BUTTON_LEFT) {
-                    int x,y;
-                    x = event.button.x ;
-                    y = event.button.y ;
-                    int bpp = ecran->format->BytesPerPixel;
-                    /* Here p is the address to the pixel we want to retrieve */
-                    Uint8 *p = (Uint8 *)ecran->pixels + y*ecran->pitch + x*bpp;
-                    /* should be p[0], p[1], p[2] ...*/
-                    fprintf(stderr,"%d %d -> %d %d %d\n",y, x, p[1], p[2], p[3]);
-                    drawRectangle(ecran, 3, 3, 30, p[1], p[2], p[3]);
-                    drawRectangle(ecran, 36, 3, 30, p[1], p[2], p[3]);
-                    drawRectangle(ecran, 69, 3, 30, p[1], p[2], p[3]);
-
-                }
-                else if(event.button.button == SDL_BUTTON_RIGHT)
-                {
-                    autoDraw=1;
-                    drawRectangle(ecran, event.button.x, event.button.y, 3, 0, 255, 0);
-                }
-                break;
-            case SDL_MOUSEBUTTONUP:
-                autoDraw=0;
-                if (event.button.button == SDL_BUTTON_LEFT) {
-                    drawRectangle(ecran, event.button.x, event.button.y, 3, 255, 0, 0);
-                }
-                break;
-
-            case SDL_MOUSEMOTION:
-                if (autoDraw)
-                    drawRectangle(ecran, event.button.x, event.button.y, 1, 0, 0, 255);
-                break;
-        }
-    }
-	SDL_Quit();
-    
-	return 0;
 }
