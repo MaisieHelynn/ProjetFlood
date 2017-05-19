@@ -10,7 +10,7 @@
 
 
 /*
- compilation soous Linux : gcc -o exSDL exSDL.c -lSDL
+ compilation sous Linux : gcc -o exSDL exSDL.c -lSDL
  compilation sur Mac : gcc -o exSDL -I/Library/Frameworks/SDL.framework/Headers  exSDL.c SDLmain.m -framework SDL -framework Cocoa
 */
 
