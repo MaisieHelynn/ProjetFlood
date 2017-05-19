@@ -122,6 +122,10 @@ couleur read_couleur(SDL_Surface *ecran){
     case SDLK_q:
     case SDLK_ESCAPE:
       res.g=-1;
+<<<<<<< HEAD
+=======
+	printf("test");
+>>>>>>> 6f5b99f8953396f6e7f5fc029cdf2e76fd175246
       break;
       // on pourrait rajouter la sauvegarde de la partie avec la touche s
     default :
