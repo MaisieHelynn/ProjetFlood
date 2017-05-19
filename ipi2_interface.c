@@ -1,4 +1,3 @@
-
 #include <SDL/SDL.h>
 #include "Lot_A.h"
 #include "Lot_B.h"
@@ -11,7 +10,7 @@
 
 /*
  compilation sous Linux : gcc -o exSDL exSDL.c -lSDL
- compilation sur Mac : gcc -o exSDL -I/Library/Frameworks/SDL.framework/Headers  exSDL.c SDLmain.m -framework SDL -framework Cocoa
+ compilation sur Mac : gcc -o test -I/Library/Frameworks/SDL.framework/Headers ipi2_interface.c Lot_A.c Lot_B.c SDLmain.m -framework SDL -framework Cocoa
 */
 
 int autoDraw=0;
@@ -47,18 +46,18 @@ couleur determine_couleur(int n){
     c.b=255;
     break;
   case 3:
-    c.r=0;
+    c.r=255;
     c.g=255;
-    c.b=255;
+    c.b=0;
     break;
   case 4:
-    c.r=255;
-    c.g=0;
-    c.b=255;
+    c.r=100;
+    c.g=100;
+    c.b=100;
     break;
   case 5:
-    c.r=255;
-    c.g=255;
+    c.r=100;
+    c.g=50;
     c.b=0;
     break;
   }
@@ -78,7 +77,7 @@ void drawRectangle(SDL_Surface *ecran, int px, int py, int size, int r, int g, i
 
 
 void affiche_carre(SDL_Surface *ecran, int x, int y, plateau p, int div){
-  int i = p.contenu[y][x];
+  int i = p.contenu[x][y];
   couleur c = determine_couleur(i);
   drawRectangle(ecran, ((8+(64+8)*x)/div), ((8+(64+8)*y)/div), (64/div), c.r, c.g, c.b);
 }
@@ -98,9 +97,6 @@ void affiche_plateau(SDL_Surface *ecran, plateau p){
     }
   }
 }
-  
-
-
 
 void fillScreen(SDL_Surface *ecran, int r, int g, int b) {
     SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, r, g, b));
@@ -111,7 +107,6 @@ void fillScreen(SDL_Surface *ecran, int r, int g, int b) {
 /* si on appuie sur q ou echap : g=-1 */
 
 couleur read_couleur(SDL_Surface *ecran){
-  printf("debug");
   couleur res;
   res.r=0;
   res.g=0;
@@ -127,12 +122,12 @@ couleur read_couleur(SDL_Surface *ecran){
     case SDLK_q:
     case SDLK_ESCAPE:
       res.g=-1;
-	printf('test');
       break;
       // on pourrait rajouter la sauvegarde de la partie avec la touche s
     default :
       break;
     }
+	break;
   case SDL_MOUSEBUTTONDOWN:
     if (event.button.button == SDL_BUTTON_LEFT) {
       int x,y;
@@ -142,28 +137,28 @@ couleur read_couleur(SDL_Surface *ecran){
       /* Here p is the address to the pixel we want to retrieve */
       Uint8 *p = (Uint8 *)ecran->pixels + y*ecran->pitch + x*bpp;
       /* should be p[0], p[1], p[2] ...*/
-      fprintf(stderr,"%d %d -> %d %d %d\n",y, x, p[0], p[1], p[2]);
-      res.r=p[0];
-      res.g=p[1];
-      res.b=p[2];
+      fprintf(stderr,"%d %d -> %d %d %d\n",y, x, p[1], p[2], p[3]);
+      res.r=p[1];
+      res.g=p[2];
+      res.b=p[3];
     }
   default :
     break;
   }
+  printf("%d %d %d",res.r, res.g, res.b);
   return res;
 }
   
 int colorie_tache_graphic(plateau *p, plateau *t, couleur c ){
   int co;
-  if((c.r==255)&&(c.g==0)&&(c.b==0)){co=2;}
+  if((c.r==255)&&(c.g==0)&&(c.b==0)){co=0;}
   if((c.r==0)&&(c.g==255)&&(c.b==0)){co=1;}
-  if((c.r==0)&&(c.g==0)&&(c.b==255)){co=0;}
-  if((c.r==0)&&(c.g==255)&&(c.b==255)){co=5;}
-  if((c.r==255)&&(c.g==0)&&(c.b==255)){co=4;}
+  if((c.r==0)&&(c.g==0)&&(c.b==255)){co=2;}
   if((c.r==255)&&(c.g==255)&&(c.b==0)){co=3;}
-  /*colorie_tache(p, t, co);*/
-  printf ("%i",co);
-  if (co==(p->contenu[0][0])){return (1==0);}// la nouvelle couleur correspond a la couleur de la tache actuelle
+  if((c.r==100)&&(c.g==100)&&(c.b==100)){co=4;}
+  if((c.r==100)&&(c.g==50)&&(c.b==0)){co=5;}
+  colorie_tache(p, t, co);  
+  /*if (co==(p->contenu[0][0])){return (1==0);}// la nouvelle couleur correspond a la couleur de la tache actuelle
   else {
     int n= t->taille;
     int i;
@@ -172,7 +167,7 @@ int colorie_tache_graphic(plateau *p, plateau *t, couleur c ){
       for (i=0; i<n; i++){
 	t->contenu[i][j]=0;
       }
-    } /* on a initialisé la tache a une tache vide */
+    }
     tache(p,t);
     for (j=0; j<n; j++){
       for (i=0; i<n; i++){
@@ -181,8 +176,9 @@ int colorie_tache_graphic(plateau *p, plateau *t, couleur c ){
 	}
       }
     }
+  }
+	*/
     return (0==0); //il y a bien eu un changement de couleur
-    }
 }
 
 
@@ -199,9 +195,6 @@ int main(){
   ecran=SDL_SetVideoMode(500, 500, 32, SDL_HWSURFACE);
   SDL_WM_SetCaption("interface graphique", NULL);
   fillScreen(ecran, 0,0,0);
-  
-  
-
   while (tour < tour_max && !vict) {
     system("clear");
     aff(jeu);
