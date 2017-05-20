@@ -1,7 +1,9 @@
 #include <SDL/SDL.h>
 #include "Lot_A.h"
 #include "Lot_B.h"
-
+#include "ipi2_interface.h"
+#include <limits.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,6 +13,11 @@ int main(){
   couleur c;
   int n;
   int tour_max;
+	FILE* fi = fopen("sauvegarde_partie.txt", "r");
+  char cwd[1024];
+	getcwd(cwd, 1024);
+	printf(cwd);
+	printf("3");
   initialisation(&n, &tour_max);
   plateau jeu = aleatoire(n, 6);
   plateau tache = new(n);
