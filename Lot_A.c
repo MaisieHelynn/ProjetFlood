@@ -354,16 +354,16 @@ void colorie_tache(plateau *p, plateau *t, int c ){
   int n= t->taille;
   int i;
   int j;
-  for (j=0; j<n; j++){
-    for (i=0; i<n; i++){
+  for (i=0; i<n; i++){
+    for (j=0; j<n; j++){
       t->contenu[i][j]=0;
     }
   } /* on a initialisé la tache a une tache vide */
   tache(p,t);
-  for (j=0; j<n; j++){
-    for (i=0; i<n; i++){
+  for (i=0; i<n; i++){
+    for (j=0; j<n; j++){
       if(t->contenu[i][j]==1){
-	changement_couleur(p, i, j, c);
+		  changement_couleur(p, i, j, c);
       }
     }
   }

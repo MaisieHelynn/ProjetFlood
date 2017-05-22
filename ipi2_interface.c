@@ -76,7 +76,7 @@ void drawRectangle(SDL_Surface *ecran, int px, int py, int size, int r, int g, i
 void affiche_carre(SDL_Surface *ecran, int x, int y, plateau p, int div){
   int i = p.contenu[x][y];
   couleur c = determine_couleur(i);
-  drawRectangle(ecran, ((8+(64+8)*x)/div), ((8+(64+8)*y)/div), (64/div), c.r, c.g, c.b);
+  drawRectangle(ecran, ((8+(64+8)*y)/div), ((8+(64+8)*x)/div), (64/div), c.r, c.g, c.b);
 }
 
 void affiche_plateau(SDL_Surface *ecran, plateau p){
