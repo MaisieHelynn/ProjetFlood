@@ -290,7 +290,7 @@ void tache(plateau *p, plateau *t){
 	  	}
       }
     /* a gauche */
-    if(ab>1)
+    if(ab>0)
       { 
 		  if ((couleur==p->contenu[ab-1][ord]) && (t->contenu[ab-1][ord]==0))
 	  	{ ajout(&pi, ab-1, ord);

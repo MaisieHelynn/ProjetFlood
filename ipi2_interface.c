@@ -158,7 +158,7 @@ int colorie_tache_graphic(plateau *p, plateau *t, couleur c ){
 	  return (1==0);
   } // la nouvelle couleur correspond a la couleur de la tache actuelle
   else {
-  colorie_tache(p, t, co);
+  	colorie_tache(p, t, co);
   return (0==0);
   }
 }
