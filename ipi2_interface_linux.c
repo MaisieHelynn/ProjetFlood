@@ -119,9 +119,10 @@ couleur read_couleur(SDL_Surface *ecran){
     switch (event.key.keysym.sym) {
     case SDLK_q:
     case SDLK_ESCAPE:
-      res.g=-1;
+      res.r=-1;
       break;
-      // on pourrait rajouter la sauvegarde de la partie avec la touche s
+	  case SDLK_s:
+	  res.g=-1;
     default :
       break;
     }
@@ -136,9 +137,9 @@ couleur read_couleur(SDL_Surface *ecran){
       Uint8 *p = (Uint8 *)ecran->pixels + y*ecran->pitch + x*bpp;
       /* should be p[0], p[1], p[2] ...*/
       fprintf(stderr,"%d %d -> %d %d %d\n",y, x, p[0], p[1], p[2]);
-      res.r=p[1];
-      res.g=p[2];
-      res.b=p[3];
+      res.r=p[2];
+      res.g=p[1];
+      res.b=p[0];
     }
   default :
     break;

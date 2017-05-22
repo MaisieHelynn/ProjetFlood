@@ -201,11 +201,12 @@ void tri(int tab[], int res[]) {
 /*----------------------------------------------------------------------------------*/
 
 void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_tache, int *limite) {
-	if (*limite > 100) {}
+	if (*limite > 100 && *nb_coups != -1) {}
 	else {
   int t = pc->taille;
   if (victoire(copie)) {
 	  trouve(pc);
+	  *limite = 0;
 	  *nb_coups=pc->taille+1;
   }
   else {

@@ -92,6 +92,8 @@ int main(){
   supprime(&jeu);
   supprime(&tache);
   supprime_pile(&pc);
-  fclose(fi);
+  if(fi != NULL){
+	  fclose(fi);
+  }
   return(0);
 };

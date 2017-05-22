@@ -34,9 +34,9 @@ void initialisation(int* n, int* tour_max) {
 		ret = scanf("%d", n);
 	}
 	printf("Le plateau est de taille %d.\n", *n);
+	*tour_max = -1;
 /*	
 	ret = 0;
-	*tour_max = -1;
 	printf("Veuillez entrer le nombre de coups maximum :\n");
 	ret = scanf("%d", tour_max);
 	
