@@ -119,9 +119,11 @@ couleur read_couleur(SDL_Surface *ecran){
     switch (event.key.keysym.sym) {
     case SDLK_q:
     case SDLK_ESCAPE:
-      res.g=-1;
+      res.r=-1;
       break;
-      // on pourrait rajouter la sauvegarde de la partie avec la touche s
+	  case SDLK_s:
+	  res.g=-1;
+	  break;
     default :
       break;
     }

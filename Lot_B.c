@@ -20,13 +20,6 @@
 void initialisation(int* n, int* tour_max) {
 	int ret = 0;
 	*n = -1;
-	/*printf("Voulez-vous reprendre à partir de la sauvegarde ? O/N");
-	ret = scanf("%i", s);
-	if (s=='O'){
-		reprise(n, tour_max);
-	}
-	else{
-	*/	
 	printf("Veuillez entrer la taille du plateau de jeu :\n");
 	ret = scanf("%d", n);
 	
@@ -41,7 +34,7 @@ void initialisation(int* n, int* tour_max) {
 		ret = scanf("%d", n);
 	}
 	printf("Le plateau est de taille %d.\n", *n);
-	
+/*	
 	ret = 0;
 	*tour_max = -1;
 	printf("Veuillez entrer le nombre de coups maximum :\n");
@@ -57,8 +50,8 @@ void initialisation(int* n, int* tour_max) {
 		}
 		ret = scanf("%d", tour_max);
 	}
-	printf("Le plateau est de taille %d.\n", *tour_max);
-	
+	printf("Le nombre de tour maximum est %d.\n", *tour_max);
+	*/
 }
 
 char couleurs[6] = {'R', 'V', 'B', 'J', 'G', 'M'};

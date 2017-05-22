@@ -206,7 +206,7 @@ void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_
   int t = pc->taille;
   if (victoire(copie)) {
 	  trouve(pc);
-	  *nb_coups=pc->taille;
+	  *nb_coups=pc->taille+1;
   }
   else {
 	if(*nb_coups==-1 || t+1 < (*nb_coups)) {
