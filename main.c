@@ -13,16 +13,31 @@ int main(){
   couleur c;
   int n;
   int tour_max;
+  char res;
+  plateau jeu;
+  plateau tache;
 	FILE* fi = fopen("sauvegarde_partie.txt", "r");
   if (fi != NULL){
-    printf (" Voulez-vous reprendre la partie sauvegardée? ");
+    printf (" Voulez-vous reprendre la partie sauvegardée?\n OUI : taper o\n NON : taper n\n");
+    scanf("%c",&res);
+    if (res=='o') {
+      jeu = reprise(10, 6);
+      tache = new(jeu.taille);
+    }
+    else {
+      initialisation(&n, &tour_max);
+      jeu = aleatoire(n, 6);
+      tache = new(n);
+    }
   }
-  char cwd[1024];
-	getcwd(cwd, 1024);
-	printf(cwd);
-  initialisation(&n, &tour_max);
-  plateau jeu = aleatoire(n, 6);
-  plateau tache = new(n);
+  else {
+    initialisation(&n, &tour_max);
+    jeu = aleatoire(n, 6);
+    tache = new(n);
+  }
+  tour_max = -1;
+  pile_couleur pc= new_pile_couleur(n*n);
+  solveur_opti(jeu, &tour_max, &pc, tache);
   int tour = 0;
   int vict = victoire(jeu);
   ecran=SDL_SetVideoMode(500, 500, 32, SDL_HWSURFACE);
@@ -73,6 +88,7 @@ int main(){
   }
   supprime(&jeu);
   supprime(&tache);
+  supprime_pi(&pc);
   fclose(fi);
   return(0);
 };
