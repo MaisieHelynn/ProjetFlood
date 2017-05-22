@@ -7,29 +7,17 @@ Instructions:
 - ouvrir un terminal
 - se placer dans le dossier contenant le code
 - taper make
-- taper ./testB (nom de l'éxécutable)
+- taper ./Floodit (nom de l'éxécutable)
 - entrer au clavier la taille de la grille de jeu, entier entre 1 et 100
-- entrer le nombre de coups maximum autorisé pour gagner la partie
 - commencer à jouer en saisissant au clavier un des choix proposés
 
 Remarques : 
-- Le fichier sauvegarde_partie.txt est un exemple d'éxécution de la fonction "sauvegarder".
+- Le solveur tourne au début du jeu pour indiquer rapidement au joueur un nombre de coups max non optimale pour des grandes tailles de plateaux.
+
+- Le jeu propose au joueur de reprendre une partie sauvgardée si elle existe.
 
 - Le fichier .h contient les prototypes.
 
-- Le "main" contient uniquement des tests.
+- Le "main" permet de jouer au jeu qui est fonctionnel.
 
 L'archive html contient les différents documents obtenu par Doxygen, il suffit d'ouvrir les .html qui mènent à une page web contenant les commentaires. 
-
-
-
-
-ATTENTION : pour la livraison du lot C :
-
-L'archive contient 1 Makefile qui permettent de compiler :
-
-- le solveur naïf lorsque l'on tape "make", cela lance l'éxécutable Testsolveur
-
-- le solveur optimisé lorsque l'on tape "make testSolveurOpti", cela lance l'éxécutable testSolveurOpti
-
-Ainsi vous avez accès aux deux versions avec chaque solveur et vous pouvez les comparer. 
