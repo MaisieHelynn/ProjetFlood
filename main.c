@@ -14,10 +14,12 @@ int main(){
   int n;
   int tour_max;
 	FILE* fi = fopen("sauvegarde_partie.txt", "r");
+  if (fi != NULL){
+    printf (" Voulez-vous reprendre la partie sauvegardée? ");
+  }
   char cwd[1024];
 	getcwd(cwd, 1024);
 	printf(cwd);
-	printf("3");
   initialisation(&n, &tour_max);
   plateau jeu = aleatoire(n, 6);
   plateau tache = new(n);
@@ -71,5 +73,6 @@ int main(){
   }
   supprime(&jeu);
   supprime(&tache);
+  fclose(fi);
   return(0);
 };
