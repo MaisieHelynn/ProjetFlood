@@ -1,3 +1,11 @@
+/*!
+* \file  ipi2_interface.c
+* \brief Lot D du Flood
+* \date 21 Mai 2017
+* \author {AMSELLEM Elyne, CHOLLET Simon, JAMOUS Remi, MEHENNI Sylia}
+*/
+
+
 #include <SDL/SDL.h>
 #include "Lot_A.h"
 #include "Lot_B.h"
@@ -5,13 +13,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// la ligne de commande sous linux : gcc ipi2_interface.c Lot_A.c Lot_B.c -o interface -Wall -Wextra -lSDL    -> et ca marche(avec la librarie sdl)
 
 
-/*
- compilation sous Linux : gcc -o exSDL exSDL.c -lSDL
- compilation sur Mac : gcc -o test -I/Library/Frameworks/SDL.framework/Headers ipi2_interface.c Lot_A.c Lot_B.c SDLmain.m -framework SDL -framework Cocoa
+/*----------------------------------------------------------------------------------*/
+/*!
+* \brief la ligne de commande sous linux : gcc ipi2_interface.c Lot_A.c Lot_B.c -o interface -Wall -Wextra -lSDL    -> et ca marche(avec la librarie sdl)
+* \brief compilation sous Linux : gcc -o exSDL exSDL.c -lSDL
+* \brief compilation sur Mac : gcc -o test -I/Library/Frameworks/SDL.framework/Headers ipi2_interface.c Lot_A.c Lot_B.c SDLmain.m -framework SDL -framework Cocoa
 */
+/*----------------------------------------------------------------------------------*/
+
+
+
 
 struct couleur {
   int r;
@@ -21,7 +34,14 @@ struct couleur {
 
 typedef struct couleur couleur;
 
-/*pour le moment il n'y a que 6 couleurs*/
+/*----------------------------------------------------------------------------------*/
+/*!
+* \fn couleur determine_couleur(int n)
+* \param Nécessite un entier n>1 qui sera associé à une couleur
+* \return un objet de type couleur
+* \brief pour le moment il n'y a que 6 couleurs
+*/
+/*----------------------------------------------------------------------------------*/
 couleur determine_couleur(int n){
   couleur c;
   c.r=255;
@@ -62,8 +82,14 @@ couleur determine_couleur(int n){
   return c;
 }
 
-
-/* px, py coordonnées haut, gauche du pixel*/
+/*----------------------------------------------------------------------------------*/
+/*!
+* \fn void drawRectangle(SDL_Surface *ecran, int px, int py, int size, int r, int g, int b)
+* \param écran SDL, 2 entiers pour les coordonnées du point supérieur gauche du carré à tracer, int pour la taille du carré, 3 int pour les couleurs
+* \return none
+* \brief px, py coordonnées haut, gauche du pixel
+*/
+/*----------------------------------------------------------------------------------*/
 void drawRectangle(SDL_Surface *ecran, int px, int py, int size, int r, int g, int b) {
     SDL_Rect rect;
     rect.x=px;
@@ -72,13 +98,27 @@ void drawRectangle(SDL_Surface *ecran, int px, int py, int size, int r, int g, i
     SDL_FillRect(ecran, &rect, SDL_MapRGB(ecran->format, r, g, b));
 }
 
-
+/*----------------------------------------------------------------------------------*/
+/*!
+* \fn void affiche_carre(SDL_Surface *ecran, int x, int y, plateau p, int div)
+* \param écran SDL, 2 entiers pour la position, int pour diviser la taille des cases selon le nb de cases, un plateau de jeu
+* \return none
+* \brief div permet d'adapter la taille des cases du jeu en fonction du nombre de cases demandé par l'utilisateur
+*/
+/*----------------------------------------------------------------------------------*/
 void affiche_carre(SDL_Surface *ecran, int x, int y, plateau p, int div){
   int i = p.contenu[x][y];
   couleur c = determine_couleur(i);
   drawRectangle(ecran, ((8+(64+8)*y)/div), ((8+(64+8)*x)/div), (64/div), c.r, c.g, c.b);
 }
 
+/*----------------------------------------------------------------------------------*/
+/*!
+* \fn void affiche_plateau(SDL_Surface *ecran, plateau p)
+* \param écran SDL, un plateau de jeu
+* \return none
+*/
+/*----------------------------------------------------------------------------------*/
 void affiche_plateau(SDL_Surface *ecran, plateau p){
   int taille=p.taille;
   int x;
@@ -96,14 +136,28 @@ void affiche_plateau(SDL_Surface *ecran, plateau p){
   SDL_Flip(ecran);
 }
 
+/*----------------------------------------------------------------------------------*/
+/*!
+* \fn void fillScreen(SDL_Surface *ecran, int r, int g, int b)
+* \param écran SDL, 3 int pour les couleurs
+* \return none
+* \brief fonction fournie
+*/
+/*----------------------------------------------------------------------------------*/
 void fillScreen(SDL_Surface *ecran, int r, int g, int b) {
     SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, r, g, b));
     SDL_Flip(ecran);
 }
 
-/* si la fenetre est fermee : r=-1 */
-/* si on appuie sur q ou echap : g=-1 */
 
+/*----------------------------------------------------------------------------------*/
+/*!
+* \fn couleur read_couleur(SDL_Surface *ecran){
+* \param écran SDL
+* \return une couleur, après une conversion de l'entier contenu dans la matrice de jeu
+* \brief si la fenetre est fermee : r=-1, si on appuie sur q ou echap : g=-1
+*/
+/*----------------------------------------------------------------------------------*/
 couleur read_couleur(SDL_Surface *ecran){
   couleur res;
   res.r=0;
@@ -147,7 +201,15 @@ couleur read_couleur(SDL_Surface *ecran){
   }
   return res;
 }
-  
+
+/*----------------------------------------------------------------------------------*/
+/*!
+* \fn int colorie_tache_graphic(plateau *p, plateau *t, couleur c )
+* \param 2 plateaux pour le jeu et la tache, un objet de type couleur
+* \return un bool (entier O si false, autre chose que 0 si true)
+* \brief permet de convertir l'objet couleur en entier afin de faire appel à la fonction colorie_tache
+*/
+/*----------------------------------------------------------------------------------*/
 int colorie_tache_graphic(plateau *p, plateau *t, couleur c ){
   int co;
   if((c.r==255)&&(c.g==0)&&(c.b==0)){co=0;}
