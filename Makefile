@@ -13,7 +13,7 @@ ifeq ($(UNAME), Linux)
 endif
 
 
-all: Floodit
+all: Floodit doc
 
 Floodit: main.o solveur_omega.o ipi2_interface.o Lot_A.o Lot_B.o
 	$(CC) -o $@ $^ $(Comp) $(LDFLAGS)
@@ -55,4 +55,7 @@ cleanall: clean
 	rm -rf testSolveurOpti
 	rm -rf testunitaire
 	rm -rf Floodit
+
+doc:
+	doxygen doc_config.cfg
 
