@@ -13,7 +13,7 @@
 /*----------------------------------------------------------------------------------*/
 /*! 
 * \struct pile_couleur
-* \brief 0 faux et !=0 vrai en c */
+* \brief 0 faux et !=0 vrai en c
 */
 /*----------------------------------------------------------------------------------*/
  struct pile_couleur {
@@ -200,7 +200,9 @@ void tri(int tab[], int res[]) {
 */
 /*----------------------------------------------------------------------------------*/
 
-void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_tache) {
+void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_tache, int *limite) {
+	if (*limite > 100) {}
+	else {
   int t = pc->taille;
   if (victoire(copie)) {
 	  trouve(pc);
@@ -246,7 +248,8 @@ void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_
 	     	colorie_tache(&nouveau, &nouvelle_tache, ordre[i]);
 	     	if(!comparaison_plateau(nouvelle_tache, copie_tache)) {
 	       		empile(pc, ordre[i]);
-	         	solveur_opti(nouveau, nb_coups, pc, nouvelle_tache);
+				*limite = *limite + 1;
+	         	solveur_opti(nouveau, nb_coups, pc, nouvelle_tache, limite);
 				depile(pc);
 			}
 	     }
@@ -254,20 +257,5 @@ void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_
     	 supprime(&nouvelle_tache);
 	}
   }
-}
-
-int main() {
-  int n = 4;
-  plateau jeu = aleatoire(n, 6);
-  plateau tache = new(n);
-  pile_couleur pc;
-  tache.contenu[0][0] = 1;
-  pc = new_pile_couleur(n*n);
-  int nb_coups=1000;
-  aff(jeu);
-  solveur_opti(jeu, &nb_coups, &pc, tache);
-  supprime(&jeu);
-  supprime(&tache);
-  supprime_pile(&pc);
-  return(0);
+	}
 }

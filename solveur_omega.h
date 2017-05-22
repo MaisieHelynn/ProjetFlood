@@ -18,6 +18,6 @@ void trouve(pile_couleur *pc);
 int comparaison_plateau(plateau p1, plateau p2);
 int somme(plateau p);
 void tri(int tab[], int res[]);
-void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_tache);
+void solveur_opti(plateau copie, int *nb_coups, pile_couleur *pc, plateau copie_tache, int *limite);
 
 #endif

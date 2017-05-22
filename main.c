@@ -1,6 +1,7 @@
 #include <SDL/SDL.h>
 #include "Lot_A.h"
 #include "Lot_B.h"
+#include "solveur_omega.h"
 #include "ipi2_interface.h"
 #include <limits.h>
 #include <unistd.h>
@@ -37,10 +38,11 @@ int main(){
   }
   tour_max = -1;
   pile_couleur pc= new_pile_couleur(n*n);
-  solveur_opti(jeu, &tour_max, &pc, tache);
+  int limite = 0;
+  solveur_opti(jeu, &tour_max, &pc, tache, &limite);
   int tour = 0;
   int vict = victoire(jeu);
-  ecran=SDL_SetVideoMode(500, 500, 32, SDL_HWSURFACE);
+  ecran=SDL_SetVideoMode(600, 600, 32, SDL_HWSURFACE);
   SDL_WM_SetCaption("interface graphique", NULL);
   fillScreen(ecran, 0,0,0);
   while (tour < tour_max && !vict) {
