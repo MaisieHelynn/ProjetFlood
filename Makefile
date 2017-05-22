@@ -54,4 +54,5 @@ cleanall: clean
 	rm -rf testSolveur
 	rm -rf testSolveurOpti
 	rm -rf testunitaire
+	rm -rf Floodit
 

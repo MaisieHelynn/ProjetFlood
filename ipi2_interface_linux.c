@@ -135,7 +135,7 @@ couleur read_couleur(SDL_Surface *ecran){
       /* Here p is the address to the pixel we want to retrieve */
       Uint8 *p = (Uint8 *)ecran->pixels + y*ecran->pitch + x*bpp;
       /* should be p[0], p[1], p[2] ...*/
-      fprintf(stderr,"%d %d -> %d %d %d\n",y, x, p[1], p[2], p[3]);
+      fprintf(stderr,"%d %d -> %d %d %d\n",y, x, p[0], p[1], p[2]);
       res.r=p[1];
       res.g=p[2];
       res.b=p[3];
